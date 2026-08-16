@@ -17,7 +17,8 @@ maintainability, and clean Laravel conventions are the priorities over feature b
 - MySQL
 - Blade templates
 - Tailwind CSS 4 (via Vite)
-- Alpine.js — only where genuinely useful
+- Alpine.js — only where genuinely useful (in practice, none was needed; the mobile nav
+  uses a native `<details>` disclosure and the compiled JS bundle is currently empty)
 - Laravel Eloquent ORM
 - Laravel session-based shopping cart (no cart database table)
 - Laravel's standard authentication / password-reset scaffolding
@@ -57,6 +58,12 @@ All business details (contact email, phone, address, social links) shown on the 
 **placeholders**. Real Urooj Tech business information will be provided later and should
 replace the placeholders via the central configuration approach described in
 [ARCHITECTURE.md](ARCHITECTURE.md).
+
+## Deployment Target
+Confirmed production target: **Hostinger Business** shared hosting at
+**uroojtechpk.com**, deployed from GitHub. Standard Laravel/PHP/MySQL hosting — no Docker,
+no VPS-only requirements. See [ARCHITECTURE.md](ARCHITECTURE.md) for deployment-readiness
+details. Actual deployment is a separate, later step from this repository's development.
 
 ## Guiding Principle
 Build less, but build it properly. Do not expand scope beyond this specification unless

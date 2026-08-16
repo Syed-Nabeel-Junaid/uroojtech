@@ -12,8 +12,11 @@ sharing one authentication system and one `users` table.
 - **Tailwind CSS 4**, wired through the official `@tailwindcss/vite` plugin
   (`vite.config.js`, `resources/css/app.css`) — this is Laravel 12's default scaffold, no
   extra setup was needed.
-- **Alpine.js** only where a small bit of client-side interactivity is genuinely useful
-  (e.g. mobile nav toggle, quantity stepper). Not used as a general state-management layer.
+- **No Alpine.js dependency was actually needed.** The mobile nav (both storefront and
+  admin) uses a native HTML `<details>`/`<summary>` disclosure — no JavaScript required.
+  The quantity selector is a plain `<input type="number">`. The unused `axios`/
+  `bootstrap.js` scaffold from the Laravel starter was removed in Phase 8, so the compiled
+  JS bundle is currently empty.
 
 ## Database Structure
 Intentionally minimal. At this stage:
@@ -28,9 +31,9 @@ Session Cart and Checkout below for why.
 
 ## Product / Category Relationships
 `Product belongsTo Category`, `Category hasMany Products` — a single, simple
-one-to-many relationship. Category deletion is guarded in the controller/service layer
-when products still reference it (soft-block with a user-facing message, not a DB
-constraint failure).
+one-to-many relationship. Category deletion is guarded twice: the admin controller checks
+`products()->exists()` first and shows a friendly message, backed by a DB-level
+`restrictOnDelete()` foreign key constraint as a hard guarantee either way.
 
 ## User Roles & Authentication
 - One `users` table, one authentication system (Laravel's standard scaffolding —
@@ -56,11 +59,29 @@ Once real payment/order processing is scoped, `orders`/`order_items` tables will
 deliberately at that point — not preemptively now.
 
 ## Business Configuration
-Business-identifying values (site name, contact email/phone/address, social links) will be
-centralized in a single Laravel config file (`config/business.php`, values sourced from
-`.env`) rather than hardcoded across Blade templates, so the real Urooj Tech details can be
-dropped in later without touching views. This config file will be introduced when the
-storefront pages that consume it are built (About/Contact/footer), not before.
+Business-identifying values (site name, contact email/phone/address, social links) are
+centralized in `config/business.php`, sourced from `BUSINESS_*` env vars, and consumed by
+the footer, About page, and Contact page rather than hardcoded across Blade templates. All
+current values are placeholders; the real Urooj Tech details can be dropped in later by
+setting the env vars, with no template changes needed.
+
+## Product Imagery
+Demo product images are downloaded as local files under `public/images/products/` (not
+loaded from external URLs at runtime), sourced from Unsplash and Pexels under their free-use
+licenses, matched to each product's category, and cropped to a consistent square aspect
+ratio. `ProductSeeder` maps each product's slug to `images/products/{slug}.jpg`. This keeps
+the storefront working without any dependency on a third-party image host or a media-library
+package.
+
+## Deployment Target
+Confirmed production target: **Hostinger Business** shared hosting, domain
+`uroojtechpk.com`, deployed from this GitHub repository. Standard Laravel/PHP/MySQL hosting
+is assumed — no Docker, no VPS-only features, no root-level server dependencies. `public/`
+is the web document root, matching Hostinger's expected Laravel layout. All environment
+config (database, mail, session/cache drivers, app URL, debug mode) is driven by `.env`;
+nothing production-specific is hardcoded in source. Verified locally that
+`php artisan config:cache`, `route:cache`, and `view:cache` all complete without error,
+which is the most common way a Laravel app silently breaks on shared hosting.
 
 ## Technologies Intentionally NOT Used
 React, Vue, Inertia, Livewire, REST API layer, repository pattern, microservices, Docker,

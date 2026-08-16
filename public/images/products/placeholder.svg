@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <rect width="600" height="600" fill="#e2e8f0"/>
+  <g fill="none" stroke="#94a3b8" stroke-width="2">
+    <rect x="150" y="180" width="300" height="220" rx="8"/>
+    <circle cx="300" cy="290" r="55"/>
+    <path d="M150 380 L240 300 L320 360 L400 280 L450 340" />
+  </g>
+  <text x="300" y="470" font-family="sans-serif" font-size="22" fill="#64748b" text-anchor="middle">
+    Urooj Tech — Image Coming Soon
+  </text>
+</svg>

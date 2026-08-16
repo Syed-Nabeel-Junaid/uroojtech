@@ -9,3 +9,47 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/*
+ * Subtle entrance animation for the homepage hero. Kept intentionally simple
+ * (fade + slight rise) and disabled entirely for users who prefer reduced
+ * motion.
+ */
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-hero-in {
+    animation: fade-in-up 0.7s ease-out both;
+}
+
+.animate-hero-in-1 {
+    animation: fade-in-up 0.7s ease-out both;
+    animation-delay: 80ms;
+}
+
+.animate-hero-in-2 {
+    animation: fade-in-up 0.7s ease-out both;
+    animation-delay: 160ms;
+}
+
+.animate-hero-in-3 {
+    animation: fade-in-up 0.7s ease-out both;
+    animation-delay: 240ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-hero-in,
+    .animate-hero-in-1,
+    .animate-hero-in-2,
+    .animate-hero-in-3 {
+        animation: none;
+    }
+}
