@@ -25,18 +25,18 @@ jobs:
           extensions: mbstring, pdo, pdo_mysql, pdo_sqlite, xml, dom, ctype, json, tokenizer, curl, fileinfo, openssl, bcmath, filter, hash
           coverage: none
 
+      - name: Install Composer dependencies (production only)
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
       # .env here is a throwaway file for this CI run only — built from the
-      # committed .env.example (no real secrets). Created before `composer
-      # install` so package-discovery boots against a consistent environment,
-      # and deleted before packaging so it can never end up in the deploy
-      # artifact.
+      # committed .env.example (no real secrets). Must come after `composer
+      # install`: `artisan` itself needs vendor/autoload.php to boot at all,
+      # so this can't run any earlier. Deleted before packaging so it can
+      # never end up in the deploy artifact.
       - name: Prepare ephemeral test environment
         run: |
           cp .env.example .env
           php artisan key:generate --force
-
-      - name: Install Composer dependencies (production only)
-        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Setup Node 22
         uses: actions/setup-node@v4
