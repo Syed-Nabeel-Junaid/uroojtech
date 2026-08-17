@@ -115,7 +115,7 @@ jobs:
       # redirect into public/). Without this exclusion, --delete would have
       # removed it on the very first deploy and broken the entire site.
       - name: Deploy via rsync over SSH
-        uses: easingthemes/ssh-deploy@v5
+        uses: easingthemes/ssh-deploy@v6
         env:
           SSH_PRIVATE_KEY: ${{ secrets.HOSTINGER_SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.HOSTINGER_SSH_HOST }}
@@ -127,7 +127,7 @@ jobs:
           EXCLUDE: '/.env, /storage/, /.htaccess'
 
       - name: Run post-deploy commands on Hostinger
-        uses: appleboy/ssh-action@v1
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.HOSTINGER_SSH_HOST }}
           port: ${{ secrets.HOSTINGER_SSH_PORT }}
