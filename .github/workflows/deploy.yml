@@ -22,7 +22,7 @@ jobs:
         with:
           php-version: '8.3'
           tools: composer:v2
-          extensions: mbstring, pdo, pdo_mysql, pdo_sqlite, xml, dom, ctype, json, tokenizer, curl, fileinfo, openssl, bcmath, filter, hash
+          extensions: mbstring, pdo, pdo_mysql, sqlite3, pdo_sqlite, xml, dom, ctype, json, tokenizer, curl, fileinfo, openssl, bcmath, filter, hash
           coverage: none
 
       - name: Install Composer dependencies (production only)
