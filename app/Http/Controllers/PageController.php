@@ -37,4 +37,12 @@ class PageController extends Controller
     {
         return view('pages.return-policy');
     }
+
+    /**
+     * Display the FAQ page.
+     */
+    public function faq(): View
+    {
+        return view('pages.faq');
+    }
 }

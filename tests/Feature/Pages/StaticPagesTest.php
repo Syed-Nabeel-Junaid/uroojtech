@@ -42,6 +42,15 @@ class StaticPagesTest extends TestCase
         $response->assertSee('Return Policy');
     }
 
+    public function test_faq_page_can_be_rendered(): void
+    {
+        $response = $this->get('/faq');
+
+        $response->assertOk();
+        $response->assertSee('Frequently Asked Questions');
+        $response->assertSee('What products does Urooj Tech sell?');
+    }
+
     public function test_contact_page_can_be_rendered(): void
     {
         $response = $this->get('/contact');

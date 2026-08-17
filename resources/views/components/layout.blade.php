@@ -22,7 +22,9 @@
     <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
         <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <a href="{{ url('/') }}" class="flex items-center gap-2.5">
-                <img src="{{ asset('images/branding/logo.jpg') }}" alt="{{ config('app.name') }}" class="h-9 w-9 rounded-full">
+                <img src="{{ asset('images/branding/logo.jpg') }}" alt="{{ config('app.name') }}"
+                     width="48" height="48"
+                     class="h-12 w-12 max-h-12 shrink-0 rounded-full object-contain">
                 <span class="text-lg font-semibold tracking-tight text-slate-900">{{ config('app.name') }}</span>
             </a>
 
@@ -137,6 +139,7 @@
                     <ul class="mt-2 space-y-1 text-sm text-slate-500">
                         <li><a href="{{ route('about') }}" class="hover:text-slate-900">About Us</a></li>
                         <li><a href="{{ route('contact') }}" class="hover:text-slate-900">Contact Us</a></li>
+                        <li><a href="{{ route('faq') }}" class="hover:text-slate-900">FAQ</a></li>
                         <li><a href="{{ route('privacy') }}" class="hover:text-slate-900">Privacy Policy</a></li>
                         <li><a href="{{ route('terms') }}" class="hover:text-slate-900">Terms &amp; Conditions</a></li>
                         <li><a href="{{ route('return-policy') }}" class="hover:text-slate-900">Return Policy</a></li>
