@@ -111,7 +111,7 @@
                             {{ $item['product']->name }}
                             <span class="text-slate-400">&times; {{ $item['quantity'] }}</span>
                         </span>
-                        <span class="font-medium text-slate-900">${{ number_format($item['lineTotal'], 2) }}</span>
+                        <span class="font-medium text-slate-900">{{ format_price($item['lineTotal']) }}</span>
                     </li>
                 @endforeach
             </ul>
@@ -119,11 +119,11 @@
             <div class="space-y-2 border-t border-slate-100 pt-4">
                 <div class="flex justify-between text-sm text-slate-600">
                     <span>Subtotal</span>
-                    <span>${{ number_format($subtotal, 2) }}</span>
+                    <span>{{ format_price($subtotal) }}</span>
                 </div>
                 <div class="flex justify-between text-base font-semibold text-slate-900">
                     <span>Total</span>
-                    <span>${{ number_format($subtotal, 2) }}</span>
+                    <span>{{ format_price($subtotal) }}</span>
                 </div>
             </div>
         </aside>

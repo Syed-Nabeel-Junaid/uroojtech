@@ -53,7 +53,7 @@
                                 </div>
                             </td>
                             <td class="px-4 py-4 text-slate-700">
-                                ${{ number_format($product->sale_price ?? $product->price, 2) }}
+                                {{ format_price($product->sale_price ?? $product->price) }}
                             </td>
                             <td class="px-4 py-4">
                                 <form method="POST" action="{{ route('cart.update', $product) }}" class="flex items-center gap-2">
@@ -68,7 +68,7 @@
                                     </button>
                                 </form>
                             </td>
-                            <td class="px-4 py-4 font-medium text-slate-900">${{ number_format($item['lineTotal'], 2) }}</td>
+                            <td class="px-4 py-4 font-medium text-slate-900">{{ format_price($item['lineTotal']) }}</td>
                             <td class="px-4 py-4 text-right">
                                 <form method="POST" action="{{ route('cart.destroy', $product) }}">
                                     @csrf
@@ -86,11 +86,11 @@
             <div class="w-full max-w-sm space-y-3 rounded-lg border border-slate-200 bg-white p-6">
                 <div class="flex justify-between text-sm text-slate-600">
                     <span>Subtotal</span>
-                    <span>${{ number_format($subtotal, 2) }}</span>
+                    <span>{{ format_price($subtotal) }}</span>
                 </div>
                 <div class="flex justify-between border-t border-slate-100 pt-3 text-base font-semibold text-slate-900">
                     <span>Total</span>
-                    <span>${{ number_format($subtotal, 2) }}</span>
+                    <span>{{ format_price($subtotal) }}</span>
                 </div>
 
                 <a href="{{ route('checkout.index') }}"

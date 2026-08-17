@@ -21,10 +21,10 @@
 
             <div class="mt-4 flex items-center gap-3">
                 @if ($product->sale_price)
-                    <span class="text-2xl font-semibold text-slate-900">${{ number_format($product->sale_price, 2) }}</span>
-                    <span class="text-lg text-slate-400 line-through">${{ number_format($product->price, 2) }}</span>
+                    <span class="text-2xl font-semibold text-slate-900">{{ format_price($product->sale_price) }}</span>
+                    <span class="text-lg text-slate-400 line-through">{{ format_price($product->price) }}</span>
                 @else
-                    <span class="text-2xl font-semibold text-slate-900">${{ number_format($product->price, 2) }}</span>
+                    <span class="text-2xl font-semibold text-slate-900">{{ format_price($product->price) }}</span>
                 @endif
             </div>
 

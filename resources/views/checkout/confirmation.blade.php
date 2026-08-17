@@ -46,13 +46,13 @@
             @foreach ($confirmation['items'] as $item)
                 <li class="flex justify-between text-sm">
                     <span class="text-slate-600">{{ $item['name'] }} &times; {{ $item['quantity'] }}</span>
-                    <span class="font-medium text-slate-900">${{ number_format($item['lineTotal'], 2) }}</span>
+                    <span class="font-medium text-slate-900">{{ format_price($item['lineTotal']) }}</span>
                 </li>
             @endforeach
         </ul>
         <div class="flex justify-between border-t border-slate-100 pt-3 text-base font-semibold text-slate-900">
             <span>Total</span>
-            <span>${{ number_format($confirmation['total'], 2) }}</span>
+            <span>{{ format_price($confirmation['total']) }}</span>
         </div>
     </div>
 

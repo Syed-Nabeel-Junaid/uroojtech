@@ -38,7 +38,7 @@
                         </td>
                         <td class="px-4 py-3 text-slate-600">{{ $product->category->name }}</td>
                         <td class="px-4 py-3 text-slate-600">
-                            ${{ number_format($product->sale_price ?? $product->price, 2) }}
+                            {{ format_price($product->sale_price ?? $product->price) }}
                         </td>
                         <td class="px-4 py-3 text-slate-600">{{ $product->stock }}</td>
                         <td class="px-4 py-3">
