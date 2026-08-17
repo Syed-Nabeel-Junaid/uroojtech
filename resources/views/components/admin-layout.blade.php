@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ ($title ?? 'Dashboard') . ' — ' . config('app.name') . ' Admin' }}</title>
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/branding/logo.jpg') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,9 +21,12 @@
     <div class="flex min-h-screen flex-col sm:flex-row">
         {{-- Desktop sidebar --}}
         <aside class="hidden w-60 shrink-0 border-r border-slate-200 bg-white sm:block">
-            <div class="border-b border-slate-200 px-6 py-4 text-lg font-semibold">
-                {{ config('app.name') }}
-                <span class="block text-xs font-normal uppercase tracking-wide text-slate-400">Admin</span>
+            <div class="flex items-center gap-2.5 border-b border-slate-200 px-6 py-4">
+                <img src="{{ asset('images/branding/logo.jpg') }}" alt="{{ config('app.name') }}" class="h-8 w-8 rounded-full">
+                <div class="text-lg font-semibold leading-tight">
+                    {{ config('app.name') }}
+                    <span class="block text-xs font-normal uppercase tracking-wide text-slate-400">Admin</span>
+                </div>
             </div>
 
             <nav class="flex flex-col gap-1 p-4 text-sm font-medium text-slate-600" aria-label="Admin">
@@ -37,7 +41,8 @@
 
         {{-- Mobile top bar --}}
         <div class="flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3 sm:hidden">
-            <span class="text-base font-semibold">
+            <span class="flex items-center gap-2 text-base font-semibold">
+                <img src="{{ asset('images/branding/logo.jpg') }}" alt="{{ config('app.name') }}" class="h-7 w-7 rounded-full">
                 {{ config('app.name') }} <span class="text-xs font-normal uppercase text-slate-400">Admin</span>
             </span>
 

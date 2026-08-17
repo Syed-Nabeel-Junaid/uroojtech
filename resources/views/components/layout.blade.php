@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ isset($title) ? "{$title} — " . config('app.name') : config('app.name') }}</title>
     <meta name="description" content="{{ $description ?? 'Shop laptops, smartphones, and technology accessories at ' . config('app.name') . '.' }}">
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/branding/logo.jpg') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -20,8 +21,9 @@
 
     <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/80">
         <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <a href="{{ url('/') }}" class="text-lg font-semibold tracking-tight text-slate-900">
-                {{ config('app.name') }}
+            <a href="{{ url('/') }}" class="flex items-center gap-2.5">
+                <img src="{{ asset('images/branding/logo.jpg') }}" alt="{{ config('app.name') }}" class="h-9 w-9 rounded-full">
+                <span class="text-lg font-semibold tracking-tight text-slate-900">{{ config('app.name') }}</span>
             </a>
 
             {{-- Desktop navigation --}}
@@ -116,7 +118,10 @@
         <div class="mx-auto max-w-6xl px-6 py-10">
             <div class="grid gap-8 sm:grid-cols-3">
                 <div>
-                    <p class="text-sm font-semibold text-slate-900">{{ config('business.name') }}</p>
+                    <div class="flex items-center gap-2">
+                        <img src="{{ asset('images/branding/logo.jpg') }}" alt="{{ config('business.name') }}" class="h-8 w-8 rounded-full">
+                        <p class="text-sm font-semibold text-slate-900">{{ config('business.name') }}</p>
+                    </div>
                     <p class="mt-2 text-sm text-slate-500">{{ config('business.address') }}</p>
                 </div>
 
@@ -134,6 +139,7 @@
                         <li><a href="{{ route('contact') }}" class="hover:text-slate-900">Contact Us</a></li>
                         <li><a href="{{ route('privacy') }}" class="hover:text-slate-900">Privacy Policy</a></li>
                         <li><a href="{{ route('terms') }}" class="hover:text-slate-900">Terms &amp; Conditions</a></li>
+                        <li><a href="{{ route('return-policy') }}" class="hover:text-slate-900">Return Policy</a></li>
                     </ul>
                 </div>
             </div>

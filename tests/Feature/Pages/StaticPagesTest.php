@@ -34,6 +34,14 @@ class StaticPagesTest extends TestCase
         $response->assertSee('Terms');
     }
 
+    public function test_return_policy_page_can_be_rendered(): void
+    {
+        $response = $this->get('/return-policy');
+
+        $response->assertOk();
+        $response->assertSee('Return Policy');
+    }
+
     public function test_contact_page_can_be_rendered(): void
     {
         $response = $this->get('/contact');

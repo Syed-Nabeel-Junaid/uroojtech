@@ -29,4 +29,12 @@ class PageController extends Controller
     {
         return view('pages.terms');
     }
+
+    /**
+     * Display the Return Policy page.
+     */
+    public function returnPolicy(): View
+    {
+        return view('pages.return-policy');
+    }
 }
