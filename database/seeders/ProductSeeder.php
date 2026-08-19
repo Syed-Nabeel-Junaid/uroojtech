@@ -10,273 +10,212 @@ use Illuminate\Support\Str;
 class ProductSeeder extends Seeder
 {
     /**
-     * Realistic demo products for the storefront, grouped by category name.
+     * The final, real gaming-hardware catalog, grouped by category name.
      *
-     * Brand names are fictional (not real trademarks) since this is placeholder
-     * demo data; product imagery uses the shared placeholder SVG until real
-     * product photography is supplied.
+     * Owner-supplied products (skuCode prefixed 1-11) keep their exact given
+     * names and prices. Products 12-15 were added to round out the catalog
+     * and are each priced above PKR 500,000 as required. Specifications
+     * reflect only what was supplied or well-known public specs for
+     * mass-market consoles — nothing invented beyond that.
      */
     public function run(): void
     {
+        // Replace the catalog wholesale rather than diffing it: the dummy
+        // catalog and this real one share no products, and updateOrCreate
+        // alone would leave old rows orphaned rather than removed.
+        Product::query()->delete();
+
         $catalog = [
-            'Laptops' => [
+            'Gaming PCs' => [
                 [
-                    'name' => 'Kestrel Pro 14 Laptop',
-                    'brand' => 'Kestrel',
-                    'price' => 1299.00,
-                    'sale_price' => 1149.00,
-                    'short_description' => 'A 14-inch ultraportable laptop built for everyday productivity.',
-                    'specifications' => ['CPU' => '8-core, up to 4.2GHz', 'RAM' => '16GB', 'Storage' => '512GB SSD', 'Display' => '14" 1920x1200'],
-                    'stock' => 18,
+                    'name' => 'ROG Hyperion Dhahab Gaming PC',
+                    'skuCode' => 'ASU',
+                    'brand' => 'ASUS ROG',
+                    'price' => 1600000.00,
+                    'short_description' => "ASUS ROG's flagship Dhahab gold-finish gaming PC with an RTX 5090 and Ryzen 7 9800X3D.",
+                    'specifications' => ['GPU' => 'NVIDIA GeForce RTX 5090', 'CPU' => 'AMD Ryzen 7 9800X3D', 'RAM' => '32GB', 'Storage' => '2TB SSD'],
+                    'stock' => 4,
                     'featured' => true,
                 ],
                 [
-                    'name' => 'Vantage GX Gaming Laptop',
-                    'brand' => 'Vantage',
-                    'price' => 1899.00,
-                    'sale_price' => null,
-                    'short_description' => 'High-performance gaming laptop with a dedicated graphics card.',
-                    'specifications' => ['CPU' => '8-core, up to 5.0GHz', 'GPU' => 'Dedicated 8GB', 'RAM' => '32GB', 'Storage' => '1TB SSD'],
-                    'stock' => 7,
-                    'featured' => false,
-                ],
-                [
-                    'name' => 'NovaTech Slim 13 Laptop',
-                    'brand' => 'NovaTech',
-                    'price' => 899.00,
-                    'sale_price' => null,
-                    'short_description' => 'Lightweight 13-inch laptop for browsing, office work, and study.',
-                    'specifications' => ['CPU' => '4-core, up to 3.6GHz', 'RAM' => '8GB', 'Storage' => '256GB SSD', 'Display' => '13.3" 1920x1080'],
-                    'stock' => 25,
-                    'featured' => false,
-                ],
-            ],
-            'Smartphones' => [
-                [
-                    'name' => 'Zenith Nova 12 Smartphone',
-                    'brand' => 'Zenith',
-                    'price' => 999.00,
-                    'sale_price' => 899.00,
-                    'short_description' => 'Flagship smartphone with a triple-camera system and all-day battery.',
-                    'specifications' => ['Display' => '6.5" OLED', 'Storage' => '256GB', 'RAM' => '8GB', 'Battery' => '4500mAh'],
-                    'stock' => 30,
+                    'name' => 'ASUS ROG NUC 16',
+                    'skuCode' => 'ASU',
+                    'brand' => 'ASUS ROG',
+                    'price' => 1400000.00,
+                    'short_description' => 'Compact ASUS ROG NUC powerhouse with an RTX 5090 and Intel Core Ultra 9.',
+                    'specifications' => ['GPU' => 'NVIDIA GeForce RTX 5090', 'CPU' => 'Intel Core Ultra 9', 'RAM' => '64GB DDR5', 'Storage' => '2TB SSD'],
+                    'stock' => 5,
                     'featured' => true,
                 ],
                 [
-                    'name' => 'Acme Spark 5G Smartphone',
-                    'brand' => 'Acme',
-                    'price' => 549.00,
-                    'sale_price' => null,
-                    'short_description' => 'Mid-range 5G smartphone with a smooth 120Hz display.',
-                    'specifications' => ['Display' => '6.4" LCD 120Hz', 'Storage' => '128GB', 'RAM' => '6GB', 'Battery' => '5000mAh'],
-                    'stock' => 40,
-                    'featured' => false,
-                ],
-            ],
-            'Tablets' => [
-                [
-                    'name' => 'Vantage Slate 11 Tablet',
-                    'brand' => 'Vantage',
-                    'price' => 649.00,
-                    'sale_price' => null,
-                    'short_description' => 'An 11-inch tablet for creativity, note-taking, and streaming.',
-                    'specifications' => ['Display' => '11" Liquid Retina-class', 'Storage' => '128GB', 'RAM' => '6GB'],
-                    'stock' => 22,
+                    'name' => 'Valve Steam Machine',
+                    'skuCode' => 'VLV',
+                    'brand' => 'Valve',
+                    'price' => 1000000.00,
+                    'short_description' => "Valve's living-room gaming PC built around SteamOS for 4K console-style gaming.",
+                    'specifications' => ['CPU' => 'AMD Zen 4, 6-core/12-thread', 'GPU' => 'Semi-custom AMD RDNA 3, 28 CU', 'OS' => 'SteamOS'],
+                    'stock' => 8,
                     'featured' => true,
                 ],
                 [
-                    'name' => 'NovaTech Pad Mini Tablet',
-                    'brand' => 'NovaTech',
-                    'price' => 349.00,
-                    'sale_price' => 299.00,
-                    'short_description' => 'Compact 8-inch tablet, perfect for reading and casual browsing.',
-                    'specifications' => ['Display' => '8" LCD', 'Storage' => '64GB', 'RAM' => '4GB'],
-                    'stock' => 35,
+                    'name' => 'ASUS ROG Monster Hyperion Gaming PC',
+                    'skuCode' => 'ASU',
+                    'brand' => 'ASUS ROG',
+                    'price' => 1400000.00,
+                    'short_description' => 'High-end ASUS ROG Hyperion build with an RTX 5080 and Ryzen 9 7900X.',
+                    'specifications' => ['GPU' => 'NVIDIA GeForce RTX 5080', 'CPU' => 'AMD Ryzen 9 7900X', 'RAM' => '32GB'],
+                    'stock' => 4,
                     'featured' => false,
+                ],
+                [
+                    'name' => 'Master TD500 Mesh Gaming PC',
+                    'skuCode' => 'CLM',
+                    'brand' => 'Cooler Master',
+                    'price' => 1300000.00,
+                    'short_description' => 'Mesh-front gaming build in a Cooler Master TD500 Mesh chassis with an Intel Core i5-14600KF.',
+                    'specifications' => ['CPU' => 'Intel Core i5-14600KF', 'RAM' => '32GB', 'Storage' => '1TB', 'Case' => 'Cooler Master TD500 Mesh'],
+                    'stock' => 5,
+                    'featured' => false,
+                ],
+                [
+                    'name' => 'EVO Lamborghini Gaming PC',
+                    'skuCode' => 'EVO',
+                    'brand' => 'EVO (Automobili Lamborghini)',
+                    'price' => 1700000.00,
+                    'short_description' => 'Automobili Lamborghini-licensed EVO gaming PC with an RTX 5080 OC and Core i9-14900KF.',
+                    'specifications' => ['GPU' => 'NVIDIA GeForce RTX 5080 OC 16GB', 'CPU' => 'Intel Core i9-14900KF', 'RAM' => '32GB', 'Storage' => '1TB'],
+                    'stock' => 3,
+                    'featured' => true,
                 ],
             ],
-            'Monitors' => [
+            'Gaming Consoles' => [
                 [
-                    'name' => 'Kestrel View 27 Monitor',
-                    'brand' => 'Kestrel',
-                    'price' => 429.00,
-                    'sale_price' => null,
-                    'short_description' => '27-inch QHD monitor with accurate color for design and office work.',
-                    'specifications' => ['Size' => '27"', 'Resolution' => '2560x1440', 'Refresh Rate' => '75Hz', 'Panel' => 'IPS'],
-                    'stock' => 15,
-                    'featured' => false,
-                ],
-                [
-                    'name' => 'Zenith Curve 32 Gaming Monitor',
-                    'brand' => 'Zenith',
-                    'price' => 599.00,
-                    'sale_price' => 529.00,
-                    'short_description' => 'Curved 32-inch gaming monitor with a 165Hz refresh rate.',
-                    'specifications' => ['Size' => '32"', 'Resolution' => '2560x1440', 'Refresh Rate' => '165Hz', 'Panel' => 'VA'],
+                    'name' => 'Sony PlayStation 5 Slim Disc Edition with COD Black Ops 6',
+                    'skuCode' => 'SNY',
+                    'brand' => 'Sony',
+                    'price' => 700000.00,
+                    'short_description' => 'PS5 Slim Disc Edition console bundled with Call of Duty: Black Ops 6.',
+                    'specifications' => ['Storage' => '1TB SSD', 'Optical Drive' => 'Ultra HD Blu-ray', 'Bundled Game' => 'Call of Duty: Black Ops 6'],
                     'stock' => 10,
                     'featured' => true,
+                    'imageExt' => 'webp',
                 ],
-            ],
-            'Keyboards' => [
                 [
-                    'name' => 'Acme Click Pro Mechanical Keyboard',
-                    'brand' => 'Acme',
-                    'price' => 129.00,
-                    'sale_price' => null,
-                    'short_description' => 'Full-size mechanical keyboard with tactile switches and backlighting.',
-                    'specifications' => ['Switch Type' => 'Mechanical tactile', 'Layout' => 'Full-size', 'Backlight' => 'RGB'],
-                    'stock' => 50,
+                    'name' => 'PlayStation 5 Gaming Bundle',
+                    'skuCode' => 'SNY',
+                    'brand' => 'Sony',
+                    'price' => 900000.00,
+                    'short_description' => 'PS5 console bundle with extra controller and accessories for multiplayer-ready gaming.',
+                    'specifications' => ['Storage' => '1TB SSD', 'Included' => 'Console + extra DualSense controller'],
+                    'stock' => 6,
+                    'featured' => false,
+                    'imageExt' => 'png',
+                ],
+                [
+                    'name' => 'Xbox Series X — 1TB Digital Edition',
+                    'skuCode' => 'MSF',
+                    'brand' => 'Microsoft',
+                    'price' => 700000.00,
+                    'short_description' => 'All-digital Xbox Series X with 1TB of storage for 4K gaming.',
+                    'specifications' => ['Storage' => '1TB SSD', 'Drive' => 'Digital (no disc drive)', 'Resolution' => 'Up to 4K/120fps'],
+                    'stock' => 10,
                     'featured' => false,
                 ],
-                [
-                    'name' => 'NovaTech Slim Wireless Keyboard',
-                    'brand' => 'NovaTech',
-                    'price' => 59.00,
-                    'sale_price' => 45.00,
-                    'short_description' => 'Slim wireless keyboard for a quiet, comfortable typing experience.',
-                    'specifications' => ['Switch Type' => 'Membrane', 'Connection' => 'Wireless 2.4GHz + Bluetooth', 'Battery' => 'Up to 6 months'],
-                    'stock' => 60,
-                    'featured' => false,
-                ],
             ],
-            'Mice' => [
+            'Gaming Laptops' => [
                 [
-                    'name' => 'Vantage Precision Wireless Mouse',
-                    'brand' => 'Vantage',
-                    'price' => 49.00,
-                    'sale_price' => null,
-                    'short_description' => 'Ergonomic wireless mouse with precision tracking.',
-                    'specifications' => ['Sensor' => 'Optical', 'DPI' => 'Up to 8000', 'Connection' => 'Wireless 2.4GHz'],
-                    'stock' => 70,
-                    'featured' => false,
-                ],
-                [
-                    'name' => 'Zenith Strike Gaming Mouse',
-                    'brand' => 'Zenith',
-                    'price' => 79.00,
-                    'sale_price' => 65.00,
-                    'short_description' => 'Lightweight gaming mouse with customizable buttons.',
-                    'specifications' => ['Sensor' => 'Optical', 'DPI' => 'Up to 16000', 'Buttons' => '7 programmable'],
-                    'stock' => 45,
-                    'featured' => true,
-                ],
-            ],
-            'Headphones' => [
-                [
-                    'name' => 'Kestrel Silence ANC Headphones',
-                    'brand' => 'Kestrel',
-                    'price' => 249.00,
-                    'sale_price' => 199.00,
-                    'short_description' => 'Over-ear headphones with active noise cancellation.',
-                    'specifications' => ['Type' => 'Over-ear', 'Noise Cancellation' => 'Active', 'Battery' => 'Up to 30 hours'],
-                    'stock' => 28,
+                    'name' => 'HP OMEN MAX 16T-AH000',
+                    'skuCode' => 'HP',
+                    'brand' => 'HP',
+                    'price' => 1399999.00,
+                    'short_description' => "HP's flagship 16-inch gaming laptop with an RTX 5090 and Intel Core Ultra 9 275HX.",
+                    'specifications' => ['CPU' => 'Intel Core Ultra 9 275HX', 'GPU' => 'NVIDIA GeForce RTX 5090 24GB', 'RAM' => '64GB', 'Storage' => '2TB SSD'],
+                    'stock' => 5,
                     'featured' => true,
                 ],
                 [
-                    'name' => 'Acme Buds Air Earbuds',
-                    'brand' => 'Acme',
-                    'price' => 89.00,
-                    'sale_price' => null,
-                    'short_description' => 'True wireless earbuds with a compact charging case.',
-                    'specifications' => ['Type' => 'In-ear', 'Battery' => 'Up to 24 hours with case', 'Water Resistance' => 'IPX4'],
-                    'stock' => 55,
-                    'featured' => false,
-                ],
-            ],
-            'Networking' => [
-                [
-                    'name' => 'NovaTech Mesh WiFi 6 Router',
-                    'brand' => 'NovaTech',
-                    'price' => 179.00,
-                    'sale_price' => null,
-                    'short_description' => 'Dual-band WiFi 6 router for fast, reliable home networking.',
-                    'specifications' => ['WiFi Standard' => 'WiFi 6', 'Bands' => 'Dual-band', 'Coverage' => 'Up to 2000 sq ft'],
-                    'stock' => 20,
-                    'featured' => false,
-                ],
-                [
-                    'name' => 'Vantage 8-Port Gigabit Switch',
-                    'brand' => 'Vantage',
-                    'price' => 59.00,
-                    'sale_price' => null,
-                    'short_description' => 'Unmanaged 8-port gigabit switch for expanding a wired network.',
-                    'specifications' => ['Ports' => '8x Gigabit Ethernet', 'Switching Capacity' => '16 Gbps'],
-                    'stock' => 32,
-                    'featured' => false,
-                ],
-            ],
-            'Storage' => [
-                [
-                    'name' => 'Kestrel Portable SSD 1TB',
-                    'brand' => 'Kestrel',
-                    'price' => 119.00,
-                    'sale_price' => 99.00,
-                    'short_description' => 'Compact 1TB portable SSD with fast USB-C transfer speeds.',
-                    'specifications' => ['Capacity' => '1TB', 'Interface' => 'USB-C 3.2', 'Read Speed' => 'Up to 1050MB/s'],
-                    'stock' => 40,
+                    'name' => 'MSI Titan 18 HX A2WJ',
+                    'skuCode' => 'MSI',
+                    'brand' => 'MSI',
+                    'price' => 2282999.00,
+                    'short_description' => "MSI's 18-inch flagship desktop-replacement gaming laptop with an RTX 5090.",
+                    'specifications' => ['CPU' => 'Intel Core Ultra 9 290HX Plus', 'GPU' => 'NVIDIA GeForce RTX 5090 24GB', 'RAM' => '64GB', 'Storage' => '2TB SSD'],
+                    'stock' => 3,
                     'featured' => true,
                 ],
                 [
-                    'name' => 'Acme MicroSD Card 256GB',
-                    'brand' => 'Acme',
-                    'price' => 34.00,
-                    'sale_price' => null,
-                    'short_description' => 'High-speed 256GB microSD card for cameras and mobile devices.',
-                    'specifications' => ['Capacity' => '256GB', 'Speed Class' => 'U3 / V30', 'Read Speed' => 'Up to 170MB/s'],
-                    'stock' => 65,
+                    'name' => 'Acer Predator Helios 16 AI',
+                    'skuCode' => 'ACR',
+                    'brand' => 'Acer',
+                    'price' => 1349999.00,
+                    'short_description' => 'Acer Predator Helios 16 AI gaming laptop with an RTX 5090 and Intel Core Ultra 9.',
+                    'specifications' => ['CPU' => 'Intel Core Ultra 9 275HX', 'GPU' => 'NVIDIA GeForce RTX 5090 24GB', 'RAM' => '64GB', 'Storage' => '2TB SSD'],
+                    'stock' => 4,
                     'featured' => false,
                 ],
             ],
-            'Accessories' => [
+            'Mice & Input' => [
                 [
-                    'name' => 'NovaTech 65W USB-C Charger',
-                    'brand' => 'NovaTech',
-                    'price' => 39.00,
-                    'sale_price' => null,
-                    'short_description' => 'Compact 65W USB-C fast charger for laptops and phones.',
-                    'specifications' => ['Output' => '65W', 'Ports' => '1x USB-C', 'Compatibility' => 'Universal USB-C'],
-                    'stock' => 80,
+                    'name' => '3Dconnexion SpaceMouse Enterprise',
+                    'skuCode' => '3DX',
+                    'brand' => '3Dconnexion',
+                    'price' => 300000.00,
+                    'short_description' => 'Flagship 6-degrees-of-freedom 3D mouse for professional CAD and modeling workflows.',
+                    'specifications' => ['Sensor' => '6-Degrees-of-Freedom (6DoF)', 'Programmable Keys' => '31', 'Display' => 'Color LCD', 'Dimensions' => '249 x 154 x 58 mm'],
+                    'stock' => 6,
                     'featured' => false,
                 ],
                 [
-                    'name' => 'Vantage Adjustable Laptop Stand',
-                    'brand' => 'Vantage',
-                    'price' => 45.00,
-                    'sale_price' => 35.00,
-                    'short_description' => 'Aluminum adjustable stand for improved laptop ergonomics.',
-                    'specifications' => ['Material' => 'Aluminum', 'Compatibility' => '10"-17" laptops', 'Adjustable' => 'Yes'],
-                    'stock' => 50,
+                    'name' => 'Gaming Mouse — gold/black limited-edition',
+                    'skuCode' => 'FNL',
+                    'brand' => 'Finalmouse',
+                    'price' => 200000.00,
+                    'short_description' => 'Limited-edition gold and black gaming mouse with a premium finish.',
+                    'specifications' => ['Color' => 'Gold / Black', 'Edition' => 'Limited'],
+                    'stock' => 2,
                     'featured' => false,
+                ],
+            ],
+            'Components' => [
+                [
+                    'name' => 'ASUS ROG Astral LC RTX 5090 OC Edition 32GB',
+                    'skuCode' => 'ASU',
+                    'brand' => 'ASUS ROG',
+                    'price' => 1450000.00,
+                    'short_description' => "ASUS ROG's premium liquid-cooled RTX 5090 graphics card with 32GB GDDR7.",
+                    'specifications' => ['GPU' => 'NVIDIA GeForce RTX 5090', 'Memory' => '32GB GDDR7', 'Cooling' => '360mm AIO liquid cooler'],
+                    'stock' => 6,
+                    'featured' => true,
                 ],
             ],
         ];
 
         foreach ($catalog as $categoryName => $products) {
-            $category = Category::where('slug', Str::slug($categoryName))->first();
-
-            if (! $category) {
-                continue;
-            }
-
             foreach ($products as $index => $product) {
+                $category = Category::where('slug', Str::slug($categoryName))->first();
+
+                if (! $category) {
+                    continue;
+                }
+
                 $slug = Str::slug($product['name']);
 
                 Product::updateOrCreate(
                     ['slug' => $slug],
                     [
                         'name' => $product['name'],
-                        'sku' => Str::upper(Str::substr($product['brand'], 0, 3)).'-'.Str::upper(Str::substr($categoryName, 0, 3)).'-'.($index + 1001),
+                        'sku' => $product['skuCode'].'-'.Str::upper(Str::substr($categoryName, 0, 3)).'-'.(1001 + $index),
                         'category_id' => $category->id,
                         'brand' => $product['brand'],
                         'price' => $product['price'],
-                        'sale_price' => $product['sale_price'],
+                        'sale_price' => null,
                         'short_description' => $product['short_description'],
-                        'description' => $product['short_description'].' Built for reliable everyday performance with a focus on quality materials and thoughtful design, backed by the Urooj Tech standard warranty.',
+                        'description' => $product['short_description'].' Available now at Urooj Tech.',
                         'specifications' => $product['specifications'],
                         'stock' => $product['stock'],
                         'status' => true,
                         'featured' => $product['featured'],
-                        'image' => "images/products/{$slug}.jpg",
+                        'image' => "images/products/{$slug}.".($product['imageExt'] ?? 'jpg'),
                     ]
                 );
             }

@@ -19,5 +19,10 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ProductSeeder::class,
         ]);
+
+        // Old categories can only be safely removed once no product
+        // references them (restrictOnDelete FK), i.e. after ProductSeeder
+        // has replaced the catalog wholesale.
+        (new CategorySeeder)->pruneOldCategories();
     }
 }
